@@ -1,0 +1,8 @@
+pipeline:
+  agent:
+    any: true
+  stages:
+    - stage: "Hello World Inicial"
+      steps:
+        - script:
+            echo "Hello World, Renan! O Jenkins as YAML está funcionando."
