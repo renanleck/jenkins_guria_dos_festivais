@@ -7,12 +7,7 @@ pipeline:
         - echo "incio do pipelines"
     - stage: "Acesso Remoto"
       steps:
-        - withCredentials:
-            - sshUserPrivateKey:
-                credentialsId: "oracle-key"
-                keyFileVariable: "SSH_KEY"
-                usernameVariable: "SSH_USER"
-            # O bloco abaixo roda os comandos usando as variáveis acima
-            # Usamos o caractere pipe (|) para enviar múltiplos comandos shell
-            - sh: |
-                ssh -i $SSH_KEY -o StrictHostKeyChecking=no ${SSH_USER}@136.248.126.184 'echo "Conectado"'
+        - |
+          withCredentials([sshUserPrivateKey(credentialsId: 'oracle-key', keyFileVariable: 'SSH_KEY', usernameVariable: 'SSH_USER')]) {
+              sh "ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ${SSH_USER}@136.248.126.184 'echo \"Conectado\"'"
+          }
