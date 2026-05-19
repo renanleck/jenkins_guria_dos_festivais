@@ -4,4 +4,5 @@ pipeline:
   stages:
     - stage: "Hello World Inicial"
       steps:
-        - sh: "echo 'Hello World, Renan! O Jenkins as YAML está funcionando.'"
+        - sh: |
+            echo "Hello World, Renan!"
