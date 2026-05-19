@@ -9,5 +9,5 @@ pipeline:
       steps:
         - |
           withCredentials([sshUserPrivateKey(credentialsId: 'oracle-key', keyFileVariable: 'SSH_KEY', usernameVariable: 'SSH_USER')]) {
-              sh "ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ${SSH_USER}@136.248.126.184 'echo \"Conectado\"'"
+              sh "ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ${SSH_USER}@136.248.126.184 'touch file_created'"
           }
