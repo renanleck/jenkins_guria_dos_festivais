@@ -2,9 +2,17 @@ pipeline:
   agent:
     any: true
   stages:
-    - stage: "Stage 1 -> Hello World"
+    - stage: "Setup"
       steps:
-        - echo "stage 1 - hello world"
-    - stage: "Stage2 -> test2"
+        - echo "incio do pipelines"
+    - stage: "Acesso Remoto"
       steps:
-        - echo "stage 2 - test2"
+        - withCredentials:
+            - sshUserPrivateKey:
+                credentialsId: "oracle-key"
+                keyFileVariable: "SSH_KEY"
+                usernameVariable: "SSH_USER"
+            # O bloco abaixo roda os comandos usando as variáveis acima
+            # Usamos o caractere pipe (|) para enviar múltiplos comandos shell
+            - sh: |
+                ssh -i $SSH_KEY -o StrictHostKeyChecking=no ${SSH_USER}@136.248.126.184 'echo "Conectado"'
