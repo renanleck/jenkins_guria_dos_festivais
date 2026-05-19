@@ -5,9 +5,18 @@ pipeline:
     - stage: "Setup"
       steps:
         - echo "incio do pipelines"
-    - stage: "Acesso Remoto"
+    - stage: "Build e Empacotamento na VM"
       steps:
         - |
           withCredentials([sshUserPrivateKey(credentialsId: 'oracle-key', keyFileVariable: 'SSH_KEY', usernameVariable: 'SSH_USER')]) {
-              sh "ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ${SSH_USER}@136.248.126.184 'touch file_created'"
+              sh """
+              ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ${SSH_USER}@136.248.126.184 '
+                  echo "--- Iniciando comandos dentro da VM ---"
+                  cd guria_dos_festivais
+                  ls -la
+                  docker build -t guriadosfestivais:v1 .
+                  docker save guriadosfestivais:v1 -o guria.tar
+                  echo "--- Comandos finalizados com sucesso ---"
+              '
+              """
           }
