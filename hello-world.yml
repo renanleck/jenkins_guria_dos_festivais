@@ -12,7 +12,7 @@ pipeline:
               sh """
               ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ${SSH_USER}@136.248.126.184 '
                   echo "--- Iniciando comandos dentro da VM ---"
-                  cd guria_dos_festivais
+                  cd guria_dos_festivais/guria_dos_festivais/
                   ls -la
                   docker build -t guriadosfestivais:v1 .
                   docker save guriadosfestivais:v1 -o guria.tar
