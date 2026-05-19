@@ -2,7 +2,9 @@ pipeline:
   agent:
     any: true
   stages:
-    - stage: "Hello World Inicial"
+    - stage: "Stage 1 -> Hello World"
       steps:
-        - sh: |
-            echo "Hello World, Renan!"
+        - echo "stage 1 - hello world"
+    - stage: "Stage2 -> test2"
+      steps:
+        - echo "stage 2 - test2"
