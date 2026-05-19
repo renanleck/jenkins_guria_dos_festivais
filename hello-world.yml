@@ -14,8 +14,16 @@ pipeline:
                   echo "--- Iniciando comandos dentro da VM ---"
                   cd guria_dos_festivais/guria_dos_festivais/
                   ls -la
+                  git pull
+                  git status
                   docker build -t guriadosfestivais:v1 .
                   docker save guriadosfestivais:v1 -o guria.tar
+
+                  sudo k3s ctr images import guria.tar
+                  kubectl delete pods -n default -l app=guria-site
+
+                  rm guria.tar
+                  kubectl get pods -n default
                   echo "--- Comandos finalizados com sucesso ---"
               '
               """
